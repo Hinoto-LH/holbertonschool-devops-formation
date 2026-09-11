@@ -3,6 +3,10 @@
 
 
 def bot_status(name, energy):
+    if energy > 100:
+        energy = 100
+    elif energy < 0:
+        energy = 0
     return f"{name} is online with {energy}% energy"
 
 def deploy():
