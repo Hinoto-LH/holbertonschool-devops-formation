@@ -1,0 +1,19 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+*.pem
+
+# OS
+.DS_Store
+
+# Personal French study notes — not a deliverable
+docker_fundamentals/doc/

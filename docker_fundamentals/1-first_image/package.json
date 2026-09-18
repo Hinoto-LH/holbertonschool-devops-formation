@@ -1,0 +1,12 @@
+{
+  "name": "first-image",
+  "version": "1.0.0",
+  "description": "Tiny Express app used to build my first Docker image",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
