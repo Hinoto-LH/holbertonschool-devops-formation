@@ -11,6 +11,7 @@ building my own image from a Dockerfile.
 | [`1-first_image/`](1-first_image/) | A tiny Express app, its `Dockerfile`, and the exact build/run commands |
 | [`2-fix_flask/`](2-fix_flask/) | Debugged a broken `Dockerfile` for a Flask app, without touching the app code |
 | [`3-fix_express/`](3-fix_express/) | Debugged a broken `Dockerfile` for an Express app: wrong instruction order, wrong `EXPOSE` |
+| [`4-interact.md`](4-interact.md) | Made the task 1 message configurable with an env var, then `-e` / `exec` / `inspect` / `logs` on the running container |
 
 ## Requirements
 
@@ -30,3 +31,5 @@ building my own image from a Dockerfile.
 - **Order is an instruction too.** Every line can be valid on its own and the
   file still be broken: what matters is what exists in the image at the moment
   each instruction runs.
+- **Configuration is injected at run time, not baked in.** One image, many
+  containers, different `-e` values — no rebuild in between.

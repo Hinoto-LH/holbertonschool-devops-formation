@@ -14,6 +14,9 @@ RUN npm install --omit=dev
 # Now copy the application source code.
 COPY . .
 
+# Default value baked into the image. `docker run -e GREETING=...` overrides it.
+ENV GREETING="Hello from my first Docker image!"
+
 # Documents the port the app actually listens on (see PORT in app.js).
 EXPOSE 3000
 

@@ -44,6 +44,18 @@ docker ps            # STATUS: Up ... PORTS: 0.0.0.0:8080->3000/tcp
 docker logs first    # -> App listening on port 3000
 ```
 
+## Configurable message
+
+The message is read from the `GREETING` environment variable, with the value
+above as the default (set by `ENV` in the Dockerfile):
+
+```bash
+docker run -d --name greet -p 8081:3000 -e GREETING="Hi there!" first-image
+curl http://localhost:8081   # -> Hi there!
+```
+
+See [`../4-interact.md`](../4-interact.md) for the full walkthrough.
+
 ## Clean up
 
 ```bash
