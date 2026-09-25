@@ -1,0 +1,37 @@
+# The API waits for the database to report HEALTHY before it even starts.
+
+services:
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      # pg_isready is Postgres' own readiness probe: it returns 0 only once the
+      # server ACCEPTS CONNECTIONS, which is later than "the process started".
+      # $$ escapes the dollar so the container's shell expands it, not Compose.
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 2s        # probe every 2s
+      timeout: 3s         # a probe taking longer than this counts as a failure
+      retries: 15         # 15 consecutive failures -> unhealthy
+      start_period: 5s    # failures during the first 5s don't count as retries
+
+  api:
+    build: ./api
+    environment:
+      DB_HOST: db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "8080:3000"
+    depends_on:
+      db:
+        condition: service_healthy    # <- the whole point of this task
+
+volumes:
+  db_data:

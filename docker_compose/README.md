@@ -8,6 +8,7 @@ Describing multi-service stacks in a single file instead of juggling several
 | Task | Content |
 |---|---|
 | [`0-first_stack/`](0-first_stack/) | A three-service stack — nginx front, Express API, PostgreSQL — started with one `docker compose up` |
+| [`1-healthchecks/`](1-healthchecks/) | The API/database startup race, demonstrated with real logs and fixed with a healthcheck + `condition: service_healthy` |
 
 ## Requirements
 
