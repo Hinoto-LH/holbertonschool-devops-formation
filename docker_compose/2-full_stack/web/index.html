@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Full stack: proxy + cache</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 44rem; margin: 3rem auto; padding: 0 1rem; }
+    pre  { background: #f4f4f5; padding: 1rem; border-radius: .5rem; overflow-x: auto; }
+    button { font: inherit; padding: .4rem .8rem; margin-right: .5rem; border-radius: .4rem;
+             border: 1px solid #d4d4d8; background: #fff; cursor: pointer; }
+    .hit { color: #15803d; } .miss { color: #b45309; }
+  </style>
+</head>
+<body>
+  <h1>Full stack</h1>
+  <p>Five services behind one door: <strong>proxy</strong> (nginx) &rarr;
+     <strong>web</strong> (this page) and <strong>api</strong> (Express)
+     &rarr; <strong>cache</strong> (Redis) + <strong>db</strong> (PostgreSQL).</p>
+  <p>The report below takes ~1s to compute in Postgres and is then cached in
+     Redis for 30s. Call it twice and watch <code>source</code> and
+     <code>elapsed_ms</code> change.</p>
+  <p>
+    <button onclick="load()">GET /api/report</button>
+    <button onclick="clearCache()">DELETE /api/cache</button>
+  </p>
+  <pre id="out">click a button…</pre>
+  <script>
+    const out = document.getElementById('out');
+    async function load() {
+      out.textContent = 'loading…';
+      const r = await fetch('/api/report');
+      out.textContent = JSON.stringify(await r.json(), null, 2);
+    }
+    async function clearCache() {
+      const r = await fetch('/api/cache', { method: 'DELETE' });
+      out.textContent = JSON.stringify(await r.json(), null, 2);
+    }
+  </script>
+</body>
+</html>

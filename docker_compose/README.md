@@ -9,6 +9,7 @@ Describing multi-service stacks in a single file instead of juggling several
 |---|---|
 | [`0-first_stack/`](0-first_stack/) | A three-service stack — nginx front, Express API, PostgreSQL — started with one `docker compose up` |
 | [`1-healthchecks/`](1-healthchecks/) | The API/database startup race, demonstrated with real logs and fixed with a healthcheck + `condition: service_healthy` |
+| [`2-full_stack/`](2-full_stack/) | Five services: an nginx reverse proxy as the single entry point, and a Redis cache in front of PostgreSQL |
 
 ## Requirements
 
@@ -41,3 +42,7 @@ the stack should look like").
   `healthcheck` and `condition: service_healthy`.
 - **`down` keeps named volumes.** Containers and networks are disposable,
   declared data is not. `down -v` is the explicit opt-in to delete it.
+- **One door.** A reverse proxy concentrates external traffic on a single
+  published port and routes by path; every other service stays internal.
+- **Not all state deserves a volume.** The database gets one; the cache
+  deliberately does not — losing a cache costs a slow request, not data.
