@@ -10,6 +10,7 @@ __pycache__/
 
 # Secrets
 .env
+.env.local
 *.pem
 
 # OS
@@ -17,3 +18,4 @@ __pycache__/
 
 # Personal French study notes — not a deliverable
 docker_fundamentals/doc/
+docker_compose/doc/

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>First Compose stack</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 4rem auto; padding: 0 1rem; }
+    pre  { background: #f4f4f5; padding: 1rem; border-radius: .5rem; overflow-x: auto; }
+    .ok  { color: #15803d; }
+  </style>
+</head>
+<body>
+  <h1>First Compose stack</h1>
+  <p>Three services, one <code>compose.yaml</code>:
+     <strong>web</strong> (nginx) &rarr; <strong>api</strong> (Express) &rarr; <strong>db</strong> (PostgreSQL).</p>
+  <p>This page is served by nginx. The block below is fetched from the API,
+     which queries the database:</p>
+  <pre id="out">loading…</pre>
+  <script>
+    fetch('/api')
+      .then(r => r.json())
+      .then(d => { document.getElementById('out').textContent = JSON.stringify(d, null, 2); })
+      .catch(e => { document.getElementById('out').textContent = 'error: ' + e; });
+  </script>
+</body>
+</html>
