@@ -10,6 +10,7 @@ Describing multi-service stacks in a single file instead of juggling several
 | [`0-first_stack/`](0-first_stack/) | A three-service stack — nginx front, Express API, PostgreSQL — started with one `docker compose up` |
 | [`1-healthchecks/`](1-healthchecks/) | The API/database startup race, demonstrated with real logs and fixed with a healthcheck + `condition: service_healthy` |
 | [`2-full_stack/`](2-full_stack/) | Five services: an nginx reverse proxy as the single entry point, and a Redis cache in front of PostgreSQL |
+| [`3-fix_stack/`](3-fix_stack/) | Debugged a `compose.yaml` that refused to come up: undefined service, port conflict, missing database credentials |
 
 ## Requirements
 
@@ -46,3 +47,7 @@ the stack should look like").
   published port and routes by path; every other service stays internal.
 - **Not all state deserves a volume.** The database gets one; the cache
   deliberately does not — losing a cache costs a slow request, not data.
+- **`docker compose config` is the cheapest debugging step.** It validates an
+  inherited file and resolves its variables without starting anything.
+- **Failures surface at different stages** — validation, container creation,
+  runtime — and each stage needs a different command to see it.
