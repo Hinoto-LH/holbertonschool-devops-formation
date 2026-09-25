@@ -11,6 +11,7 @@ Describing multi-service stacks in a single file instead of juggling several
 | [`1-healthchecks/`](1-healthchecks/) | The API/database startup race, demonstrated with real logs and fixed with a healthcheck + `condition: service_healthy` |
 | [`2-full_stack/`](2-full_stack/) | Five services: an nginx reverse proxy as the single entry point, and a Redis cache in front of PostgreSQL |
 | [`3-fix_stack/`](3-fix_stack/) | Debugged a `compose.yaml` that refused to come up: undefined service, port conflict, missing database credentials |
+| [`4-architecture.md`](4-architecture.md) | Map of the task 2 stack: services, network, volumes, and the end-to-end path of a request |
 
 ## Requirements
 
